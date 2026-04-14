@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instrumento de Acompañamiento al Docente</title>
+  <style>
+    :root {
+      --azul: #1584c7;
+      --azul-oscuro: #0f5f92;
+      --verde: #dfead7;
+      --verde-claro: #eef7ea;
+      --crema: #f4f0d8;
+      --borde: #b9d5e6;
+      --texto: #1f2937;
+      --rojo: #b42318;
+      --sombra: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #eef5fb;
+      color: var(--texto);
+    }
+
+    .contenedor {
+      max-width: 1320px;
+      margin: 24px auto 48px;
+      background: #fff;
+      border: 1px solid #d9e7f3;
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+
+    .encabezado {
+      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul));
+      color: #fff;
+      padding: 36px 32px 32px;
+    }
+
+    .encabezado .subtitulo-superior {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      opacity: .98;
+      letter-spacing: .3px;
+    }
+
+    .encabezado h1 {
+      margin: 8px 0 10px;
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .encabezado p {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 14px;
+      max-width: 1050px;
+    }
+
+    form {
+      padding: 24px 32px 36px;
+    }
+
+    .bloque {
+      border: 1px solid #dbe7f0;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .bloque-titulo {
+      background: #e8f4fb;
+      color: var(--azul-oscuro);
+      padding: 14px 18px;
+      font-size: 18px;
+      font-weight: 800;
+      border-bottom: 1px solid #d5e8f5;
+    }
+
+    .bloque-cuerpo {
+      padding: 18px;
+    }
+
+    .subtitulo {
+      margin: 4px 0 14px;
+      padding: 10px 12px;
+      background: var(--verde);
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .g-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .g-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .campo label,
+    .grupo-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #243b53;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #c9d9e7;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+    }
+
+    input:disabled {
+      background: #eef2f6;
+      color: #6b7280;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.5;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(21,132,199,.12);
+    }
+
+    .opciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      padding-top: 4px;
+    }
+
+    .opcion,
+    .grado-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fbfd;
+      border: 1px solid #d9e7f2;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .18s ease;
+    }
+
+    .opcion:has(input:checked),
+    .grado-box:has(input:checked) {
+      background: #dff0fb;
+      border-color: var(--azul);
+      color: var(--azul-oscuro);
+      font-weight: 700;
+      box-shadow: 0 0 0 2px rgba(21,132,199,.10);
+    }
+
+    .opcion input,
+    .grado-box input,
+    .sugerencia-item input {
+      accent-color: var(--azul);
+    }
+
+    .selector-grados {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .estado-busqueda {
+      min-height: 18px;
+      font-size: 12px;
+      color: #5b6b7d;
+    }
+
+    .estado-aviso {
+      color: #b45309;
+      font-weight: 700;
+    }
+
+    .estado-error {
+      color: #b42318;
+      font-weight: 700;
+    }
+
+    .fila-linea {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #d7e4ee;
+    }
+
+    .nota-escala {
+      background: #f7fbff;
+      border: 1px dashed #b8d7ec;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .resumen-automatico,
+    .sugerencias-acuerdos {
+      margin-top: 16px;
+      border: 1px solid #d7e7f2;
+      border-radius: 12px;
+      background: #f8fbfe;
+      padding: 16px;
+    }
+
+    .resumen-automatico h3,
+    .sugerencias-acuerdos h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: var(--azul-oscuro);
+    }
+
+    .porcentajes-niveles {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .porcentaje-box {
+      border: 1px solid #cfe3f2;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .porcentaje-box .nivel {
+      font-size: 13px;
+      font-weight: 800;
+      color: #0f4d74;
+      margin-bottom: 6px;
+    }
+
+    .porcentaje-box .valor {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--azul-oscuro);
+      line-height: 1.1;
+    }
+
+    .porcentaje-box .detalle {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #617384;
+      line-height: 1.35;
+    }
+
+    .sugerencias-acuerdos p {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: #5b6b7d;
+      line-height: 1.5;
+    }
+
+    .lista-sugerencias {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .sugerencia-bloque {
+      border: 1px solid #d9e7f2;
+      border-radius: 12px;
+      background: #fbfdff;
+      padding: 12px;
+    }
+
+    .sugerencia-codigo {
+      font-weight: 800;
+      color: var(--azul-oscuro);
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .sugerencia-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid #d9e7f2;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+      margin-bottom: 10px;
+    }
+
+    .sugerencia-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .sugerencia-texto {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--texto);
+    }
+
+    .sugerencia-vacia {
+      padding: 12px;
+      border: 1px dashed #cfe3f2;
+      border-radius: 12px;
+      font-size: 13px;
+      color: #617384;
+      background: #fbfdff;
+    }
+
+    .acciones-sugerencias,
+    .acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tabla-wrap {
+      overflow-x: auto;
+      border: 1px solid #dbe7f0;
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1120px;
+    }
+
+    th, td {
+      border: 1px solid var(--borde);
+      padding: 10px 8px;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    thead th {
+      background: var(--crema);
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .fila-seccion td {
+      background: #d8ead0;
+      font-weight: 800;
+      color: #17324d;
+    }
+
+    .fila-subseccion td {
+      background: var(--verde-claro);
+      font-weight: 800;
+      color: #17324d;
+    }
+
+    .col-codigo { width: 85px; text-align: center; font-weight: 700; }
+    .col-indicador { min-width: 470px; }
+    .col-valor { width: 74px; text-align: center; }
+    .col-obs { min-width: 250px; }
+
+    .valoracion {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .valoracion input { transform: scale(1.1); }
+
+    .firmas-impresion {
+      display: none;
+    }
+
+    .firmas {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      margin-top: 16px;
+    }
+
+    .firma,
+    .firma-central {
+      text-align: center;
+      padding-top: 28px;
+    }
+
+    .linea {
+      border-top: 2px solid #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .firma-central {
+      max-width: 420px;
+      margin: 20px auto 0;
+    }
+
+    .acciones {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid #ddeaf4;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primario { background: var(--azul); color: #fff; }
+    .btn-secundario { background: #e8f3fb; color: var(--azul-oscuro); }
+    .btn-peligro { background: #fde8e8; color: var(--rojo); }
+
+    .pie {
+      padding: 0 32px 28px;
+      font-size: 12px;
+      color: #617384;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .oculto { display: none !important; }
+
+    .bloqueo-formulario {
+      display: none;
+    }
+
+    .pantalla-acceso {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 31, 47, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    .acceso-card {
+      width: 100%;
+      max-width: 520px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      border: 1px solid #d9e7f3;
+    }
+
+    .acceso-head {
+      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul));
+      color: #fff;
+      padding: 22px 24px;
+    }
+
+    .acceso-head h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .acceso-head p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.45;
+      opacity: .98;
+    }
+
+    .acceso-body {
+      padding: 22px 24px 24px;
+    }
+
+    .acceso-acciones {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .acceso-resumen {
+      margin-top: 10px;
+      min-height: 18px;
+      font-size: 12px;
+      color: #5b6b7d;
+    }
+
+    @media (max-width: 980px) {
+      .g-2, .g-3, .g-4, .g-5, .firmas, .porcentajes-niveles {
+        grid-template-columns: 1fr;
+      }
+
+      .contenedor {
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .encabezado, form, .pie {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .encabezado h1 {
+        font-size: 24px;
+      }
+    }
+
+    @media print {
+      @page {
+        size: landscape;
+        margin: 10mm;
+      }
+
+      body {
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .contenedor {
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .acciones {
+        display: none !important;
+      }
+
+      .sugerencias-acuerdos {
+        display: none !important;
+      }
+
+      .firmas-impresion {
+        display: block !important;
+      }
+
+      .pantalla-acceso {
+        display: none !important;
+      }
+
+      form {
+        padding: 0;
+      }
+
+      .encabezado {
+        padding: 16px 18px 14px;
+      }
+
+      .encabezado .subtitulo-superior {
+        font-size: 11px;
+        margin-bottom: 2px;
+      }
+
+      .encabezado h1 {
+        font-size: 18px;
+        margin: 6px 0 6px;
+      }
+
+      .encabezado p,
+      .bloque-titulo,
+      .campo label,
+      .grupo-label,
+      .nota-escala,
+      .pie,
+      textarea,
+      input,
+      select,
+      table,
+      th,
+      td {
+        font-size: 10px !important;
+      }
+
+      .bloque {
+        break-inside: avoid;
+        margin-bottom: 10px;
+      }
+
+      .bloque-cuerpo {
+        padding: 10px;
+      }
+
+      .tabla-wrap {
+        overflow: visible !important;
+      }
+
+      table {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      tr {
+        page-break-inside: avoid;
+      }
+
+      th, td {
+        white-space: normal !important;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        padding: 4px 3px;
+      }
+
+      .col-codigo { width: 6% !important; }
+      .col-indicador { width: 42% !important; min-width: 0 !important; }
+      .col-valor { width: 5.5% !important; }
+      .col-obs { width: 30% !important; min-width: 0 !important; }
+      .valoracion input { transform: scale(0.9); }
+      textarea { min-height: 52px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="pantalla-acceso" id="pantallaAcceso">
+    <div class="acceso-card">
+      <div class="acceso-head">
+        <h2>Registro del acompañante</h2>
+        <p>Digite la cédula del acompañante para acceder al formulario.</p>
+      </div>
+      <div class="acceso-body">
+        <div class="campo">
+          <label for="cedulaAcceso">Cédula</label>
+          <input type="text" id="cedulaAcceso" placeholder="Digite la cédula del acompañante" />
+        </div>
+
+        <div class="campo" style="margin-top:12px;">
+          <label for="nombreAcceso">Nombre y apellido</label>
+          <input type="text" id="nombreAcceso" placeholder="Autocompletado o digitación manual" />
+        </div>
+
+        <div id="estadoAcceso" class="acceso-resumen"></div>
+
+        <div class="acceso-acciones">
+          <button type="button" class="btn-primario" onclick="continuarAlFormulario()">Continuar</button>
+          <button type="button" class="btn-secundario" onclick="buscarAcompananteAcceso()">Buscar nombre</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contenedor bloqueo-formulario" id="contenedorFormulario">
+    <div class="encabezado">
+      <div class="subtitulo-superior">Ministerio de Educación</div>
+      <div class="subtitulo-superior">MINERD</div>
+      <div class="subtitulo-superior">Viceministerio de Servicios Técnicos y Pedagógicos</div>
+      <div class="subtitulo-superior">Dirección de Educación Primaria</div>
+      <h1>Instrumento de Acompañamiento al Docente</h1>
+      <p>
+        Propósito: acompañar al docente del Nivel Primario en su práctica pedagógica,
+        identificando las fortalezas y oportunidades de mejora sobre las cuales se construyen
+        acuerdos y compromisos, con miras a mejorar progresivamente su desempeño.
+      </p>
+    </div>
+
+    <form id="formAcompanamiento">
+      <section class="bloque">
+        <div class="bloque-titulo">Informaciones Generales</div>
+        <div class="bloque-cuerpo">
+          <div class="subtitulo">Informaciones del centro educativo acompañado</div>
+
+          <div class="grid g-5">
+            <div class="campo">
+              <label for="codigoSigerd">Código SIGERD</label>
+              <input type="text" id="codigoSigerd" name="codigoSigerd" placeholder="Digite el código del centro" />
+              <div id="estadoBusquedaCentro" class="estado-busqueda"></div>
+            </div>
+            <div class="campo">
+              <label for="regional">Regional</label>
+              <input type="text" id="regional" name="regional" disabled />
+            </div>
+            <div class="campo">
+              <label for="distrito">Distrito</label>
+              <input type="text" id="distrito" name="distrito" disabled />
+            </div>
+            <div class="campo">
+              <label for="centroEducativo">Nombre del Centro</label>
+              <input type="text" id="centroEducativo" name="centroEducativo" disabled />
+            </div>
+            <div class="campo">
+              <label for="sector">Sector</label>
+              <input type="text" id="sector" name="sector" disabled />
+            </div>
+          </div>
+
+          <div class="grid g-3 fila-linea">
+            <div class="campo">
+              <span class="grupo-label">Centro Multigrado</span>
+              <div class="opciones">
+                <label class="opcion"><input type="radio" name="tipoCentro" value="Sí"> Sí</label>
+                <label class="opcion"><input type="radio" name="tipoCentro" value="No" checked> No</label>
+              </div>
+            </div>
+            <div class="campo">
+              <span class="grupo-label">Tanda</span>
+              <div class="opciones">
+                <label class="opcion"><input type="radio" name="tanda" value="JEE"> JEE</label>
+                <label class="opcion"><input type="radio" name="tanda" value="Mat."> Mat.</label>
+                <label class="opcion"><input type="radio" name="tanda" value="Vesp."> Vesp.</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="subtitulo" style="margin-top:18px;">Informaciones del acompañante</div>
+          <div class="grid g-4">
+            <div class="campo">
+              <label for="acompananteCedula">Cédula</label>
+              <input type="text" id="acompananteCedula" name="acompananteCedula" placeholder="Digite la cédula" />
+              <div id="estadoBusquedaAcompanante" class="estado-busqueda"></div>
+            </div>
+            <div class="campo" style="grid-column: span 3;">
+              <label for="acompananteNombre">Nombre y apellido</label>
+              <input type="text" id="acompananteNombre" name="acompananteNombre" placeholder="Autocompletado o digitación manual" />
+            </div>
+          </div>
+
+          <div class="campo fila-linea">
+            <span class="grupo-label">Función</span>
+            <div class="opciones">
+              <label class="opcion"><input type="radio" name="funcionAcompanante" value="Director del centro"> Director del centro</label>
+              <label class="opcion"><input type="radio" name="funcionAcompanante" value="Coordinador pedagógico"> Coordinador pedagógico</label>
+              <label class="opcion"><input type="radio" name="funcionAcompanante" value="Técnico Distrital"> Técnico Distrital</label>
+              <label class="opcion"><input type="radio" name="funcionAcompanante" value="Técnico Regional"> Técnico Regional</label>
+              <label class="opcion"><input type="radio" name="funcionAcompanante" value="Coord. de Red"> Coord. de Red</label>
+            </div>
+          </div>
+
+          <div class="subtitulo" style="margin-top:18px;">Informaciones del acompañamiento</div>
+          <div class="grid g-4">
+            <div class="campo">
+              <label for="acompanadoCedula">Cédula del docente</label>
+              <input type="text" id="acompanadoCedula" name="acompanadoCedula" placeholder="Digite la cédula" />
+              <div id="estadoBusquedaAcompanado" class="estado-busqueda"></div>
+            </div>
+            <div class="campo" style="grid-column: span 3;">
+              <label for="docenteNombre">Nombre y apellido del docente</label>
+              <input type="text" id="docenteNombre" name="docenteNombre" placeholder="Autocompletado o digitación manual" />
+            </div>
+          </div>
+
+          <div class="grid g-4 fila-linea">
+            <div class="campo">
+              <label for="areaAcompanada">Área acompañada</label>
+              <select id="areaAcompanada" name="areaAcompanada">
+                <option value="">Seleccione</option>
+                <option>Lengua Española</option>
+                <option>Matemática</option>
+                <option>Ciencias Sociales</option>
+                <option>Ciencias de la Naturaleza</option>
+                <option>Lenguas Extranjeras (Inglés)</option>
+                <option>Educación Artística</option>
+                <option>Formación Humana</option>
+                <option>Educación Física</option>
+              </select>
+            </div>
+            <div class="campo" id="bloqueCicloRegular">
+              <span class="grupo-label">Ciclo</span>
+              <div class="opciones">
+                <label class="opcion"><input type="radio" name="ciclo" value="Primer Ciclo"> Primer Ciclo</label>
+                <label class="opcion"><input type="radio" name="ciclo" value="Segundo Ciclo"> Segundo Ciclo</label>
+              </div>
+            </div>
+            <div class="campo oculto" id="bloqueCiclosMulti">
+              <span class="grupo-label">Ciclos</span>
+              <div class="opciones">
+                <label class="opcion"><input type="checkbox" name="ciclosMultigrado" value="Primer Ciclo"> Primer Ciclo</label>
+                <label class="opcion"><input type="checkbox" name="ciclosMultigrado" value="Segundo Ciclo"> Segundo Ciclo</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="campo fila-linea" id="bloqueGradoRegular">
+            <span class="grupo-label">Grado acompañado</span>
+            <div class="selector-grados">
+              <label class="grado-box"><input type="radio" name="gradoUnico" value="1ro."> 1ro.</label>
+              <label class="grado-box"><input type="radio" name="gradoUnico" value="2do."> 2do.</label>
+              <label class="grado-box"><input type="radio" name="gradoUnico" value="3ro."> 3ro.</label>
+              <label class="grado-box"><input type="radio" name="gradoUnico" value="4to."> 4to.</label>
+              <label class="grado-box"><input type="radio" name="gradoUnico" value="5to."> 5to.</label>
+              <label class="grado-box"><input type="radio" name="gradoUnico" value="6to."> 6to.</label>
+            </div>
+          </div>
+
+          <div class="campo fila-linea oculto" id="bloqueGradosMulti">
+            <span class="grupo-label">Grados acompañados</span>
+            <div class="selector-grados">
+              <label class="grado-box"><input type="checkbox" name="gradosMultigrado" value="1ro."> 1ro.</label>
+              <label class="grado-box"><input type="checkbox" name="gradosMultigrado" value="2do."> 2do.</label>
+              <label class="grado-box"><input type="checkbox" name="gradosMultigrado" value="3ro."> 3ro.</label>
+              <label class="grado-box"><input type="checkbox" name="gradosMultigrado" value="4to."> 4to.</label>
+              <label class="grado-box"><input type="checkbox" name="gradosMultigrado" value="5to."> 5to.</label>
+              <label class="grado-box"><input type="checkbox" name="gradosMultigrado" value="6to."> 6to.</label>
+            </div>
+          </div>
+
+          <div class="campo fila-linea">
+            <label for="seccion">Sección</label>
+            <select id="seccion" name="seccion">
+              <option value="">Seleccione</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option>
+              <option>F</option><option>G</option><option>H</option><option>I</option><option>J</option>
+            </select>
+          </div>
+
+          <div class="subtitulo" style="margin-top:18px;">Cantidad de estudiantes</div>
+          <div class="grid g-4 fila-linea">
+            <div class="campo">
+              <label for="inscritos">Inscritos</label>
+              <input type="number" id="inscritos" name="inscritos" min="0" />
+            </div>
+            <div class="campo">
+              <label for="presentes">Presentes</label>
+              <input type="number" id="presentes" name="presentes" min="0" />
+            </div>
+            <div class="campo">
+              <label for="fecha">Fecha</label>
+              <input type="date" id="fecha" name="fecha" />
+            </div>
+            <div class="campo">
+              <label for="horaInicio">Inicio</label>
+              <input type="time" id="horaInicio" name
