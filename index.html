@@ -64,9 +64,7 @@
       max-width: 1050px;
     }
 
-    form {
-      padding: 24px 32px 36px;
-    }
+    form { padding: 24px 32px 36px; }
 
     .bloque {
       border: 1px solid #dbe7f0;
@@ -84,9 +82,7 @@
       border-bottom: 1px solid #d5e8f5;
     }
 
-    .bloque-cuerpo {
-      padding: 18px;
-    }
+    .bloque-cuerpo { padding: 18px; }
 
     .subtitulo {
       margin: 4px 0 14px;
@@ -106,6 +102,7 @@
     .g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .g-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .g-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 
     .campo {
       display: flex;
@@ -202,15 +199,7 @@
       color: #5b6b7d;
     }
 
-    .estado-aviso {
-      color: #b45309;
-      font-weight: 700;
-    }
-
-    .estado-error {
-      color: #b42318;
-      font-weight: 700;
-    }
+    .estado-aviso { color: #b45309; font-weight: 700; }
 
     .fila-linea {
       margin-top: 12px;
@@ -242,6 +231,22 @@
       margin: 0 0 12px;
       font-size: 16px;
       color: var(--azul-oscuro);
+    }
+
+    .chips-resumen {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip-resumen {
+      background: #e8f4fb;
+      border: 1px solid #cfe3f2;
+      color: #0f4d74;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .porcentajes-niveles {
@@ -294,20 +299,6 @@
       margin-bottom: 14px;
     }
 
-    .sugerencia-bloque {
-      border: 1px solid #d9e7f2;
-      border-radius: 12px;
-      background: #fbfdff;
-      padding: 12px;
-    }
-
-    .sugerencia-codigo {
-      font-weight: 800;
-      color: var(--azul-oscuro);
-      margin-bottom: 6px;
-      font-size: 13px;
-    }
-
     .sugerencia-item {
       display: flex;
       gap: 10px;
@@ -316,11 +307,13 @@
       border-radius: 12px;
       padding: 12px;
       background: #fff;
-      margin-bottom: 10px;
     }
 
-    .sugerencia-item:last-child {
-      margin-bottom: 0;
+    .sugerencia-codigo {
+      font-weight: 800;
+      color: var(--azul-oscuro);
+      margin-bottom: 4px;
+      font-size: 13px;
     }
 
     .sugerencia-texto {
@@ -395,10 +388,6 @@
 
     .valoracion input { transform: scale(1.1); }
 
-    .firmas-impresion {
-      display: none;
-    }
-
     .firmas {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -451,86 +440,28 @@
 
     .oculto { display: none !important; }
 
-    .bloqueo-formulario {
+    .solo-impresion {
       display: none;
     }
 
-    .pantalla-acceso {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 31, 47, 0.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 9999;
-    }
+    @media print {
+      .sugerencias-acuerdos {
+        display: none !important;
+      }
 
-    .acceso-card {
-      width: 100%;
-      max-width: 520px;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
-      overflow: hidden;
-      border: 1px solid #d9e7f3;
-    }
-
-    .acceso-head {
-      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul));
-      color: #fff;
-      padding: 22px 24px;
-    }
-
-    .acceso-head h2 {
-      margin: 0 0 6px;
-      font-size: 24px;
-      line-height: 1.2;
-    }
-
-    .acceso-head p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.45;
-      opacity: .98;
-    }
-
-    .acceso-body {
-      padding: 22px 24px 24px;
-    }
-
-    .acceso-acciones {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .acceso-resumen {
-      margin-top: 10px;
-      min-height: 18px;
-      font-size: 12px;
-      color: #5b6b7d;
+      .solo-impresion {
+        display: block !important;
+      }
     }
 
     @media (max-width: 980px) {
-      .g-2, .g-3, .g-4, .g-5, .firmas, .porcentajes-niveles {
+      .g-2, .g-3, .g-4, .g-5, .g-6, .firmas, .porcentajes-niveles {
         grid-template-columns: 1fr;
       }
 
-      .contenedor {
-        margin: 0;
-        border-radius: 0;
-      }
-
-      .encabezado, form, .pie {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
-
-      .encabezado h1 {
-        font-size: 24px;
-      }
+      .contenedor { margin: 0; border-radius: 0; }
+      .encabezado, form, .pie { padding-left: 18px; padding-right: 18px; }
+      .encabezado h1 { font-size: 24px; }
     }
 
     @media print {
@@ -553,39 +484,15 @@
         max-width: 100%;
       }
 
-      .acciones {
-        display: none !important;
-      }
-
-      .sugerencias-acuerdos {
-        display: none !important;
-      }
-
-      .firmas-impresion {
-        display: block !important;
-      }
-
-      .pantalla-acceso {
-        display: none !important;
-      }
-
-      form {
-        padding: 0;
-      }
+      .acciones { display: none !important; }
+      form { padding: 0; }
 
       .encabezado {
         padding: 16px 18px 14px;
       }
 
-      .encabezado .subtitulo-superior {
-        font-size: 11px;
-        margin-bottom: 2px;
-      }
-
-      .encabezado h1 {
-        font-size: 18px;
-        margin: 6px 0 6px;
-      }
+      .encabezado .subtitulo-superior { font-size: 11px; margin-bottom: 2px; }
+      .encabezado h1 { font-size: 18px; margin: 6px 0 6px; }
 
       .encabezado p,
       .bloque-titulo,
@@ -602,18 +509,9 @@
         font-size: 10px !important;
       }
 
-      .bloque {
-        break-inside: avoid;
-        margin-bottom: 10px;
-      }
-
-      .bloque-cuerpo {
-        padding: 10px;
-      }
-
-      .tabla-wrap {
-        overflow: visible !important;
-      }
+      .bloque { break-inside: avoid; margin-bottom: 10px; }
+      .bloque-cuerpo { padding: 10px; }
+      .tabla-wrap { overflow: visible !important; }
 
       table {
         width: 100% !important;
@@ -622,13 +520,8 @@
         border-collapse: collapse;
       }
 
-      thead {
-        display: table-header-group;
-      }
-
-      tr {
-        page-break-inside: avoid;
-      }
+      thead { display: table-header-group; }
+      tr { page-break-inside: avoid; }
 
       th, td {
         white-space: normal !important;
@@ -647,45 +540,14 @@
   </style>
 </head>
 <body>
-  <div class="pantalla-acceso" id="pantallaAcceso">
-    <div class="acceso-card">
-      <div class="acceso-head">
-        <h2>Registro del acompañante</h2>
-        <p>Digite la cédula del acompañante para acceder al formulario.</p>
-      </div>
-      <div class="acceso-body">
-        <div class="campo">
-          <label for="cedulaAcceso">Cédula</label>
-          <input type="text" id="cedulaAcceso" placeholder="Digite la cédula del acompañante" />
-        </div>
-
-        <div class="campo" style="margin-top:12px;">
-          <label for="nombreAcceso">Nombre y apellido</label>
-          <input type="text" id="nombreAcceso" placeholder="Autocompletado o digitación manual" />
-        </div>
-
-        <div id="estadoAcceso" class="acceso-resumen"></div>
-
-        <div class="acceso-acciones">
-          <button type="button" class="btn-primario" onclick="continuarAlFormulario()">Continuar</button>
-          <button type="button" class="btn-secundario" onclick="buscarAcompananteAcceso()">Buscar nombre</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="contenedor bloqueo-formulario" id="contenedorFormulario">
+  <div class="contenedor">
     <div class="encabezado">
       <div class="subtitulo-superior">Ministerio de Educación</div>
       <div class="subtitulo-superior">MINERD</div>
       <div class="subtitulo-superior">Viceministerio de Servicios Técnicos y Pedagógicos</div>
       <div class="subtitulo-superior">Dirección de Educación Primaria</div>
       <h1>Instrumento de Acompañamiento al Docente</h1>
-      <p>
-        Propósito: acompañar al docente del Nivel Primario en su práctica pedagógica,
-        identificando las fortalezas y oportunidades de mejora sobre las cuales se construyen
-        acuerdos y compromisos, con miras a mejorar progresivamente su desempeño.
-      </p>
+      <p>Propósito: acompañar al docente del Nivel Primario en su práctica pedagógica, identificando las fortalezas y oportunidades de mejora sobre las cuales se construyen acuerdos y compromisos, con miras a mejorar progresivamente su desempeño.</p>
     </div>
 
     <form id="formAcompanamiento">
@@ -760,6 +622,7 @@
             </div>
           </div>
 
+          <div class="solo-impresion">
           <div class="subtitulo" style="margin-top:18px;">Informaciones del acompañamiento</div>
           <div class="grid g-4">
             <div class="campo">
@@ -837,6 +700,16 @@
             </select>
           </div>
 
+                    <div class="campo fila-linea">
+            <label for="seccion">Sección</label>
+            <select id="seccion" name="seccion">
+              <option value="">Seleccione</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option>
+              <option>F</option><option>G</option><option>H</option><option>I</option><option>J</option>
+            </select>
+          </div>
+        </div>
+
           <div class="subtitulo" style="margin-top:18px;">Cantidad de estudiantes</div>
           <div class="grid g-4 fila-linea">
             <div class="campo">
@@ -853,4 +726,281 @@
             </div>
             <div class="campo">
               <label for="horaInicio">Inicio</label>
-              <input type="time" id="horaInicio" name
+              <input type="time" id="horaInicio" name="horaInicio" />
+            </div>
+          </div>
+
+          <div class="grid g-3" style="margin-top:14px;">
+            <div class="campo">
+              <label for="horaTermino">Término</label>
+              <input type="time" id="horaTermino" name="horaTermino" />
+            </div>
+            <div class="campo" style="grid-column: span 2;">
+              <span class="grupo-label">Indique el tipo de acompañamiento</span>
+              <div class="opciones">
+                <label class="opcion"><input type="radio" name="tipoAcompanamiento" value="Diagnóstico"> Diagnóstico</label>
+                <label class="opcion"><input type="radio" name="tipoAcompanamiento" value="Focalizado"> Focalizado</label>
+                <label class="opcion"><input type="radio" name="tipoAcompanamiento" value="De seguimiento"> De seguimiento</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bloque">
+        <div class="bloque-cuerpo">
+          <div class="campo">
+            <label for="foco">Describa el foco o propósito del acompañamiento</label>
+            <textarea id="foco" name="foco"></textarea>
+          </div>
+          <div class="campo" style="margin-top:14px;">
+            <label for="intencionDocente">Describa la intención pedagógica del docente</label>
+            <textarea id="intencionDocente" name="intencionDocente"></textarea>
+          </div>
+          <div class="campo" style="margin-top:14px;">
+            <label for="contenidoConceptual">Especifique el contenido conceptual abordado por el docente</label>
+            <textarea id="contenidoConceptual" name="contenidoConceptual"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="bloque">
+        <div class="bloque-titulo">Escala de Estimación</div>
+        <div class="bloque-cuerpo">
+          <div class="nota-escala">
+            Lea cada indicador y marque el nivel que corresponda de acuerdo con la observación, según la siguiente escala de valoración:<br>
+            <strong>1.</strong> No evidenciado &nbsp;&nbsp; <strong>2.</strong> Medianamente evidenciado &nbsp;&nbsp; <strong>3.</strong> Evidenciado &nbsp;&nbsp; <strong>4.</strong> No Aplica
+          </div>
+
+          <div class="tabla-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-codigo">#</th>
+                  <th class="col-indicador">Indicadores</th>
+                  <th class="col-valor">1</th>
+                  <th class="col-valor">2</th>
+                  <th class="col-valor">3</th>
+                  <th class="col-valor">4</th>
+                  <th class="col-obs">Observaciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaIndicadores"></tbody>
+            </table>
+          </div>
+
+          <div class="resumen-automatico">
+            <h3>Resumen automático de indicadores por nivel</h3>
+            <div class="chips-resumen" id="resumenIndicadores"></div>
+            <div class="porcentajes-niveles" id="porcentajesNiveles"></div>
+          </div>
+
+          <div class="sugerencias-acuerdos">
+            <h3>Acuerdos sugeridos según la escala</h3>
+            <p>Se muestran sugerencias automáticas para los indicadores marcados en nivel 1 o 2. Puede seleccionar las que desee incorporar y agregarlas al campo de acuerdos.</p>
+            <div class="lista-sugerencias" id="listaSugerenciasAcuerdos"></div>
+            <div class="acciones-sugerencias">
+              <button type="button" class="btn-secundario" onclick="agregarAcuerdosSeleccionados()">Agregar acuerdos seleccionados</button>
+              <button type="button" class="btn-secundario" onclick="seleccionarTodasSugerencias()">Seleccionar todas</button>
+              <button type="button" class="btn-secundario" onclick="limpiarSeleccionSugerencias()">Limpiar selección</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bloque">
+        <div class="bloque-titulo">Acuerdos / Compromisos</div>
+        <div class="bloque-cuerpo">
+          <div class="campo">
+            <label for="acuerdos">Acuerdos / Compromisos</label>
+            <textarea id="acuerdos" name="acuerdos" style="min-height:220px;"></textarea>
+          </div>
+          <div class="firmas">
+            <div class="firma">
+              <div class="linea"></div>
+              <div>Nombre del/la docente acompañado(a)</div>
+            </div>
+            <div class="firma">
+              <div class="linea"></div>
+              <div>Nombre del coordinador(a) docente</div>
+            </div>
+          </div>
+          <div class="firma-central">
+            <div class="linea"></div>
+            <div>Director(a) del centro</div>
+            <div style="margin-top:8px; font-weight:700;">SELLO CENTRO</div>
+          </div>
+          <div class="firma-central">
+            <div class="linea"></div>
+            <div>Nombre del técnico(a) docente</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="acciones">
+        <button type="button" class="btn-primario" onclick="window.print()">Imprimir / Guardar PDF</button>
+        <button type="button" class="btn-secundario" onclick="guardarBorrador()">Guardar borrador</button>
+        <button type="submit" class="btn-primario">Enviar</button>
+        <button type="button" class="btn-peligro" onclick="limpiarFormulario()">Limpiar formulario</button>
+      </div>
+    </form>
+
+    <div class="pie">
+      &copy; <span id="year"></span> Ministerio de Educación (MINERD). Dirección de Educación Primaria.<br>
+      Instrumento elaborado por el equipo técnico de la Dirección de Educación Primaria.<br>
+      Desarrollo técnico: Aneudy Minier.
+    </div>
+  </div>
+
+  <script>
+    const indicadores = [
+      { tipo: 'seccion', titulo: '1. Planificación' },
+      { codigo: '1.1', texto: 'Cuenta con una planificación que responde a las estrategias orientadas desde el Nivel Primario.' },
+      { codigo: '1.2', texto: 'Muestra una planificación diaria actualizada, orientada al desarrollo de las competencias del grado y propias del área acompañada, tomando como base la planificación de unidad.' },
+      { codigo: '1.3', texto: 'Toma en cuenta las guías didácticas de su ciclo para la realización de la planificación diaria como se orientó desde el Nivel Primario.' },
+      { codigo: '1.4', texto: 'Existe coherencia entre la intención pedagógica y las actividades elaboradas para cada uno de los momentos de la clase.' },
+      { codigo: '1.5', texto: 'Se observan estrategias y actividades diferenciadas para atender a la diversidad del aula.' },
+      { codigo: '1.6', texto: 'Elabora actividades de evaluación alineadas con la intención pedagógica e instrumentos para registrar los aprendizajes obtenidos por los estudiantes.' },
+      { codigo: '1.7', texto: 'Se evidencia en la planificación diaria recursos didácticos previamente seleccionados en función al desarrollo de los contenidos a desarrollar y la intención pedagógica.' },
+      { tipo: 'seccion', titulo: '2. Momentos de la práctica pedagógica' },
+      { tipo: 'subseccion', titulo: 'Actividades de inicio' },
+      { codigo: '2.1', texto: 'Realiza la retroalimentación del tema anterior utilizando estrategias innovadoras.' },
+      { codigo: '2.2', texto: 'Comparte con los alumnos la intención pedagógica de la clase como medio para motivar el aprendizaje.' },
+      { codigo: '2.3', texto: 'Explora los conocimientos previos de los alumnos como punto de partida para el desarrollo de la temática.' },
+      { tipo: 'subseccion', titulo: 'Actividades de desarrollo' },
+      { codigo: '2.4', texto: 'La clase está orientada al desarrollo de las competencias del área que está impartiendo.' },
+      { codigo: '2.5', texto: 'Hace uso efectivo de las secuencias didácticas del área y del ciclo en el que está trabajando.' },
+      { codigo: '2.6', texto: 'Apoya a los estudiantes durante el desarrollo de las actividades de construcción del conocimiento de manera individual y/o colectiva.' },
+      { codigo: '2.7', texto: 'La secuencia de actividades desarrolladas es coherente con la intención pedagógica y posibilita la adquisición de nuevos conocimientos.' },
+      { codigo: '2.8', texto: 'Desarrolla actividades específicas y pertinentes para atender a las necesidades educativas individuales de sus estudiantes.' },
+      { codigo: '2.9', texto: 'Demuestra dominio de los contenidos del área durante las actividades de construcción de los conocimientos.' },
+      { codigo: '2.10', texto: 'El aula está ambientada con sentido pedagógico y acorde con los contenidos curriculares que desarrolla, como lo indica el Modelo Pedagógico del Nivel Primario.' },
+      { codigo: '2.11', texto: 'Utiliza los recursos de manera pertinente, en el desarrollo de las actividades, facilitando el logro de las competencias del área que está impartiendo, incorporando la tecnología.' },
+      { codigo: '2.12', texto: 'Durante el desarrollo de la clase se evidencia un rol protagónico de los estudiantes, construyendo sus aprendizajes de manera reflexiva.' },
+      { codigo: '2.13', texto: 'Se evidencia una disciplina funcional fundamentada en el respeto durante el desarrollo de la clase.' },
+      { codigo: '2.14', texto: 'Se evidencia una distribución efectiva del tiempo para cada uno de los momentos: inicio, desarrollo y cierre.' },
+      { tipo: 'subseccion', titulo: 'Actividades de cierre' },
+      { codigo: '2.15', texto: 'Realiza una actividad o ejercicio de evaluación alineada con la intención pedagógica, usando alguna técnica o instrumento de evaluación para registrar los aprendizajes obtenidos por los estudiantes.' },
+      { codigo: '2.16', texto: 'Realiza el cierre pedagógico de la clase retomando la intención pedagógica presentada y socializada al inicio de la clase.' },
+      { tipo: 'seccion', titulo: '3. Aspectos a tomar en cuenta' },
+      { codigo: '3.1', texto: 'El docente muestra evidencia de la realización de evaluaciones sistemáticas y periódicas para determinar el nivel de avance de los estudiantes en el aprendizaje. Tiene constancia del nivel de avance de cada uno.' },
+      { codigo: '3.2', texto: 'El docente hace un uso correcto del registro de grado completando todos los aspectos que tiene que haber trabajado al momento del acompañamiento.' },
+      { codigo: '3.3', texto: 'Los cuadernos de los niños están organizados y hay evidencias de un trabajo sistemático mostrando coherencia entre lo planificado por el docente y lo trabajado por los estudiantes.' },
+      { codigo: '3.4', texto: 'Los portafolios de los estudiantes están organizados y tienen evidencias de las evaluaciones y producciones de los estudiantes que permiten visualizar la evolución de sus aprendizajes.' },
+      { tipo: 'seccion', titulo: '4. Una mirada reflexiva de la clase acompañada' },
+      { codigo: '4.1', texto: 'El docente logra identificar sus fortalezas a partir de las preguntas reflexivas realizadas por el acompañante.' },
+      { codigo: '4.2', texto: 'Logra identificar las oportunidades de mejora a partir de las preguntas reflexivas realizadas por el acompañante.' },
+      { codigo: '4.3', texto: 'Muestra una actitud colaborativa y de respeto ante las observaciones y sugerencias dadas por el acompañante.' },
+      { codigo: '4.4', texto: 'Construye los acuerdos tomando en cuenta las oportunidades de mejora detectadas en el acompañamiento, los escribe y muestra una actitud positiva con el cumplimiento de estos.' }
+    ];
+
+    const sugerenciasPorIndicador = {
+      '1.1': {bloque:'Planificación', texto:'Elaborar la planificación alineada con las estrategias orientadas desde el Nivel Primario.'},
+      '1.2': {bloque:'Planificación', texto:'Actualizar la planificación diaria tomando como base la planificación de unidad y las competencias del grado y del área.'},
+      '1.3': {bloque:'Planificación', texto:'Incorporar de manera sistemática las guías didácticas del ciclo en la planificación diaria.'},
+      '1.4': {bloque:'Planificación', texto:'Revisar la coherencia entre la intención pedagógica y las actividades previstas para cada momento de la clase.'},
+      '1.5': {bloque:'Planificación', texto:'Incluir estrategias diferenciadas para atender la diversidad del aula.'},
+      '1.6': {bloque:'Planificación', texto:'Diseñar actividades e instrumentos de evaluación alineados con la intención pedagógica.'},
+      '1.7': {bloque:'Planificación', texto:'Seleccionar previamente los recursos didácticos según el contenido y la intención pedagógica.'},
+      '2.1': {bloque:'Inicio de la clase', texto:'Implementar estrategias innovadoras para la retroalimentación del tema anterior.'},
+      '2.2': {bloque:'Inicio de la clase', texto:'Comunicar explícitamente la intención pedagógica al inicio de cada clase.'},
+      '2.3': {bloque:'Inicio de la clase', texto:'Incorporar actividades para explorar los conocimientos previos de los estudiantes.'},
+      '2.4': {bloque:'Desarrollo de la clase', texto:'Orientar las actividades de clase al desarrollo de las competencias del área.'},
+      '2.5': {bloque:'Desarrollo de la clase', texto:'Fortalecer el uso de las secuencias didácticas del área y del ciclo.'},
+      '2.6': {bloque:'Desarrollo de la clase', texto:'Brindar acompañamiento más activo a los estudiantes durante la construcción del aprendizaje.'},
+      '2.7': {bloque:'Desarrollo de la clase', texto:'Ajustar la secuencia de actividades para que responda mejor a la intención pedagógica.'},
+      '2.8': {bloque:'Desarrollo de la clase', texto:'Diseñar actividades específicas para atender necesidades educativas individuales.'},
+      '2.9': {bloque:'Desarrollo de la clase', texto:'Fortalecer el dominio de los contenidos del área acompañada.'},
+      '2.10': {bloque:'Desarrollo de la clase', texto:'Ambientar el aula con mayor sentido pedagógico y en coherencia con los contenidos curriculares.'},
+      '2.11': {bloque:'Desarrollo de la clase', texto:'Utilizar recursos y tecnología de forma más pertinente para favorecer el desarrollo de competencias.'},
+      '2.12': {bloque:'Desarrollo de la clase', texto:'Promover un rol más protagónico del estudiante en la construcción de sus aprendizajes.'},
+      '2.13': {bloque:'Desarrollo de la clase', texto:'Fortalecer una disciplina funcional basada en el respeto durante toda la clase.'},
+      '2.14': {bloque:'Desarrollo de la clase', texto:'Organizar mejor el tiempo destinado a inicio, desarrollo y cierre de la clase.'},
+      '2.15': {bloque:'Cierre de la clase', texto:'Aplicar actividades de evaluación alineadas con la intención pedagógica y registrar los resultados obtenidos.'},
+      '2.16': {bloque:'Cierre de la clase', texto:'Realizar cierres pedagógicos que retomen la intención y los aprendizajes desarrollados en la clase.'},
+      '3.1': {bloque:'Evaluación y evidencias', texto:'Realizar evaluaciones sistemáticas y periódicas para dar seguimiento al avance de cada estudiante.'},
+      '3.2': {bloque:'Evaluación y evidencias', texto:'Mantener actualizado el registro de grado conforme a los aspectos trabajados.'},
+      '3.3': {bloque:'Evaluación y evidencias', texto:'Organizar los cuadernos de los estudiantes de manera coherente con la planificación y el trabajo de aula.'},
+      '3.4': {bloque:'Evaluación y evidencias', texto:'Fortalecer el uso del portafolio como evidencia de evaluación y seguimiento del aprendizaje.'}
+    };
+
+    const tabla = document.getElementById('tablaIndicadores');
+    const resumenIndicadores = document.getElementById('resumenIndicadores');
+    const porcentajesNiveles = document.getElementById('porcentajesNiveles');
+    const listaSugerenciasAcuerdos = document.getElementById('listaSugerenciasAcuerdos');
+
+    function escaparHTML(texto) {
+      return String(texto)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function crearTabla() {
+      tabla.innerHTML = '';
+      indicadores.forEach(item => {
+        if (item.tipo === 'seccion') {
+          const tr = document.createElement('tr');
+          tr.className = 'fila-seccion';
+          tr.innerHTML = '<td colspan="7">' + item.titulo + '</td>';
+          tabla.appendChild(tr);
+          return;
+        }
+        if (item.tipo === 'subseccion') {
+          const tr = document.createElement('tr');
+          tr.className = 'fila-subseccion';
+          tr.innerHTML = '<td colspan="7">' + item.titulo + '</td>';
+          tabla.appendChild(tr);
+          return;
+        }
+
+        const tr = document.createElement('tr');
+        let radios = '';
+        [1, 2, 3, 4].forEach(v => {
+          radios += '<td class="col-valor"><label class="valoracion"><input type="radio" name="val_' + item.codigo + '" value="' + v + '"></label></td>';
+        });
+        tr.innerHTML = '<td class="col-codigo">' + item.codigo + '</td>' +
+          '<td class="col-indicador">' + item.texto + '</td>' +
+          radios +
+          '<td class="col-obs"><textarea name="obs_' + item.codigo + '" placeholder="Observaciones para ' + item.codigo + '" style="min-height:72px;"></textarea></td>';
+        tabla.appendChild(tr);
+      });
+
+      document.querySelectorAll('input[type="radio"][name^="val_"]').forEach(el => {
+        el.addEventListener('change', actualizarResumenIndicadores);
+      });
+    }
+
+    function actualizarResumenIndicadores() {
+      const totales = { 1: 0, 2: 0, 3: 0, 4: 0 };
+      const totalIndicadores = indicadores.filter(item => item.codigo).length;
+      const sugerencias = [];
+
+      indicadores.forEach(item => {
+        if (!item.codigo) return;
+        const seleccionado = document.querySelector('input[name="val_' + item.codigo + '"]:checked');
+        if (seleccionado) {
+          const nivel = seleccionado.value;
+          totales[nivel]++;
+          if ((nivel === '1' || nivel === '2') && sugerenciasPorIndicador[item.codigo]) {
+            const sug = sugerenciasPorIndicador[item.codigo];
+            sugerencias.push({ codigo: item.codigo, nivel: nivel, texto: sug.texto, bloque: sug.bloque });
+          }
+        }
+      });
+
+      const respondidos = totales[1] + totales[2] + totales[3] + totales[4];
+      const sinResponder = totalIndicadores - respondidos;
+      const basePorcentaje = totalIndicadores - totales[4];
+      const pct = valor => basePorcentaje > 0 ? ((valor / basePorcentaje) * 100).toFixed(1) : '0.0';
+
+      resumenIndicadores.innerHTML = '' +
+        '<div class="chip-resumen">Nivel 1: ' + totales[1] + '</div>' +
+        '<div class="chip-resumen">Nivel 2: ' + totales[2] + '</div>' +
+        '<div class="chip-resumen">Nivel 3: ' + totales[3] + '</div>' +
+        '<div class="chip-resumen">Nivel 4: ' + totales[4] + '</div>' +
+        '<div class="chip-resumen">Sin responder: ' + sinResponder + '</div>' +
+        '<div class="chip-resumen">Total de indicadores: ' + totalIndicadores + '</div>' +
+        '<div class="chip-resumen">Total observado para porcentaje: ' 
